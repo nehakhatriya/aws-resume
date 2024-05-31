@@ -20,7 +20,7 @@ jobs:
         AWS_REGION: 'us-east-2'   
         SOURCE_DIR: 'frontend'     
 
-   invalidate-cloudfront-distribution:
+  invalidate-cloudfront-distribution:
     needs: copy-website-to-s3-and-invalidate-cloudfront
     runs-on: ubuntu-latest
     steps:
