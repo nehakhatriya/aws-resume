@@ -32,11 +32,8 @@ resource "aws_iam_role" "iam_for_lambda" {
 EOF
 }
 
-
-# Retrieve the current AWS region dynamically
 data "aws_region" "current" {}
 
-# Retrieve the current AWS account ID dynamically
 data "aws_caller_identity" "current" {}
 
 data "aws_iam_policy_document" "lambda_logging" {
@@ -80,11 +77,6 @@ resource "aws_api_gateway_deployment" "deploy" {
   stage_name="stage-01"
 }
 
-# resource "aws_api_gateway_stage" "staged" {
-#   deployment_id = aws_api_gateway_deployment.deploy.id
-#   rest_api_id   = aws_api_gateway_rest_api.api.id
-#   stage_name    = "stage-01"
-# }
 
 resource "aws_api_gateway_resource" "resource" {
   path_part   = "count"
@@ -118,7 +110,3 @@ resource "aws_lambda_permission" "api_gw" {
 
   source_arn = "${aws_api_gateway_rest_api.api.execution_arn}/*/*"
 }
-
-# output "base_url" {
-#   value = "${aws_api_gateway_stage.staged.invoke_url}/count"
-# }
